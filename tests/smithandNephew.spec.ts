@@ -33,8 +33,9 @@ test('Testing the checkbox and radio button', async ({ page }) => {
 
 test('Testing the form page ', async ({ page }) => {
     const formPage = new FormPage(page);
-  
+
     await page.goto('https://demoqa.com/automation-practice-form');
+    
   
     await formPage.fillForm('Andy', 'Dunn', 'andy@gmail.com', '0749789898', 'Manchester');
     await formPage.selectStateAndCity();

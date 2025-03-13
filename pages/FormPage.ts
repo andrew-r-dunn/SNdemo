@@ -1,9 +1,7 @@
-// FormPage.ts
 import { Locator, Page } from '@playwright/test';
 
 export class FormPage {
   private page: Page;
-  private practiceFormLocator: Locator;
   private firstNameInput: Locator;
   private lastNameInput: Locator;
   private emailInput: Locator;
@@ -22,29 +20,26 @@ export class FormPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.practiceFormLocator = page.locator('//span[text()="Practice Form"]');
-    this.firstNameInput = page.locator('#userName-wrapper > div:nth-child(2)');
-    this.lastNameInput = page.getByRole('textbox', { name: 'Last Name' });
-    this.emailInput = page.getByRole('textbox', { name: 'name@example.com' });
+    this.firstNameInput = page.locator('#firstName');
+    this.lastNameInput = page.locator('#lastName');
+    this.emailInput = page.locator('#userEmail');
     this.genderMaleRadioButton = page.getByText('Male', { exact: true });
-    this.mobileNumberInput = page.getByRole('textbox', { name: 'Mobile Number' });
+    this.mobileNumberInput = page.locator('#userNumber');
     this.dateOfBirthInput = page.locator('#dateOfBirthInput');
     this.yearSelect = page.getByRole('combobox').nth(1);
     this.daySelect = page.getByRole('option', { name: 'Choose Wednesday, March 15th,' });
     this.subjectsInput = page.locator('.subjects-auto-complete__value-container');
-    this.fileInput = page.getByRole('textbox', { name: 'Select picture' });
-    this.currentAddressInput = page.getByRole('textbox', { name: 'Current Address' });
+    this.fileInput = page.locator('#uploadPicture');
+    this.currentAddressInput = page.locator('#currentAddress');
     this.stateDropdown = page.locator('#state > .css-yk16xz-control > .css-1wy0on6 > .css-tlfecz-indicatorContainer');
     this.cityDropdown = page.locator('div').filter({ hasText: /^Select City$/ }).nth(3);
     this.submitButton = page.getByRole('button', { name: 'Submit' });
-    this.uploadedFileCell = page.getByRole('cell', { name: 'Test Pic 1.jpg' });
+    this.uploadedFileCell = page.getByRole('cell', { name: 'fav_icon.jpg' });
   }
-
 
 
   // Fill out the form fields
   async fillForm(firstName: string, lastName: string, email: string, mobile: string, currentAddress: string) {
-    await this.practiceFormLocator.click();
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.emailInput.fill(email);
@@ -58,7 +53,7 @@ export class FormPage {
     await this.page.getByText('Biology', { exact: true }).click();
     await this.page.getByText('Sports').click();
     await this.page.getByText('Reading').click();
-    await this.fileInput.setInputFiles('Test Pic 1.jpg');
+    await this.fileInput.setInputFiles('C:/Users/RG.JenishaBogati/Downloads/fav_icon.jpg');
     await this.currentAddressInput.fill(currentAddress);
   }
 
